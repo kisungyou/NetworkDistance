@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#' HIM Distance\n#'\n#' Hamming-Ipsen-Mikhailov (HIM) combines the local Hamming edit distance and the global\n#' Ipsen-Mikhailov distance to merge information at each scale. For Ipsen-Mikhailove distance,\n#' it is provided as \\code{nd.csd} in our package for consistency. Given a parameter \\eqn{\\xi} (\\code{xi}),\n#' it is defined as\n#' \\deqn{HIM_{\\xi}(A,B)=\\sqrt{H^2(A,B)+\\xi\\cdot IM^2(A,B)}/\\sqrt{1+\\xi}}\n#' where \\eqn{H} and \\eqn{IM} stand for Hamming and I-M distance, respectively.\n#'\n#' @param A a list of length \\eqn{N} containing \\eqn{(M\\times M)} adjacency matrices.\n#' @param out.dist a logical; \\code{TRUE} for computed distance matrix as a \\code{dist} object.\n#' @param xi a parameter to control balance between two distances.\n#' @param ntest the number of searching over \\code{\\link{nd.csd}} parameter.\n#'\n#' @return a named list containing \\describe{\n#' \\item{D}{an \\eqn{(N\\times N)} matrix or \\code{dist} object containing pairwise distance measures.}\n#' }\n#'\n#' @examples\n#' ## generate two types of adjacency matrices of size (3-by-3)\n#' rbin1 = rbinom(9,1,0.8); mat1 = matrix(rbin1,nrow=3)\n#' rbin2 = rbinom(9,1,0.2); mat2 = matrix(rbin2,nrow=3)\n#'\n#' mattype1 = ceiling((mat1+t(mat1))/2); diag(mattype1)=0;\n#' mattype2 = ceiling((mat2+t(mat2))/2); diag(mattype2)=0;\n#'\n#' A = list()\n#' for (i in 1:3){A[[i]]=mattype1} # first 3 are type-1\n#' for (i in 4:6){A[[i]]=mattype2} # next  3 are type-2\n#'\n#' ## compute distance and visualize\n#' output = nd.him(A, out.dist=FALSE)\n#' image(output$D, main=\"two group case\")\n#'\n#' @references\n#' \\insertRef{jurman_him_2015}{NetworkDistance}\n#'\n#' @seealso \\code{\\link{nd.hamming}}, \\code{\\link{nd.csd}}\n#' @rdname nd_him\n#' @export\nnd.him <- function(A, out.dist=TRUE, xi=1.0, ntest=10){\n  #-------------------------------------------------------\n  ## PREPROCESSING\n  # 1. list of length larger than 1\n  if ((!is.list(A))||(length(A)<=1)){\n    stop(\"* nd.him : input 'A' should be a list of length larger than 1.\")\n  }\n  # 2. transform the data while checking\n  listA = list_transform(A, NIflag=\"not\")\n  N = length(listA)\n  M = nrow(listA[[1]])\n  # 3. xi : parameter\n  xi = as.double(xi)\n  if ((length(as.vector(xi))!=1)||(xi<0)||(is.na(xi))||(is.infinite(xi))){\n    stop(\"* nd.him : parameter 'xi' should be a nonnegative real number.\")\n  }\n  # 4. ntest : parameter\n  ntest = as.integer(ntest)\n  if ((length(as.vector(ntest))!=1)||(ntest<2)||(is.na(ntest))||(is.infinite(ntest))){\n    stop(\"* nd.him : parameter 'ntest' should be a positive integer larger than 1.\")\n  }\n\n  #-------------------------------------------------------\n  ## MAIN COMPUTATION\n  #   1. compute Hamming Distance\n  D_hamming <- nd.hamming(listA, out.dist=FALSE)$D\n  #   2. IM-type\n  #   2-1. we need to find parameter,  the optimal one\n  mat_empty = matrix(rep(0,M*M),nrow=M)\n  mat_full  = matrix(rep(1,M*M),nrow=M); diag(mat_full)=0;\n  A_IMfind  = list()\n  A_IMfind[[1]] = mat_empty; A_IMfind[[2]] = mat_full;\n\n  im_grid  = 10^seq(from=-2,to=1,length.out=ntest)\n  im_score = rep(0,ntest)\n  for (i in 1:ntest){\n    im_scoremat <- nd.csd(A_IMfind, out.dist=FALSE, bandwidth = im_grid[i])$D\n    im_score    <- im_scoremat[1,2]\n  }\n  im_index = which(abs(im_score-1)==(min(abs(im_score - 1))))\n  im_optbd = im_grid[im_index]\n\n  #   2-2. let's compute the distance matrix\n  D_im <- nd.csd(listA, out.dist=FALSE, bandwidth = im_optbd)$D\n\n  #   3. now we have to matrices, go compute it.\n  solution = (sqrt((D_hamming^2)+ xi*(D_im^2)))/sqrt(1+xi)\n\n  #-------------------------------------------------------\n  ## RETURN RESULTS\n  if (out.dist){\n    solution = as.dist(solution)\n  }\n\n  result = list()\n  result$D= solution\n  return(result)\n}\n",
+    "created" : 1512667073737.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3741296276",
+    "id" : "C263280A",
+    "lastKnownWriteTime" : 1512667671,
+    "last_content_update" : 1512667671678,
+    "path" : "~/Desktop/NetworkDistance/R/nd_him.R",
+    "project_path" : "R/nd_him.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 9,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

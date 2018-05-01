@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "Package: NetworkDistance\nType: Package\nTitle: Distance Measures for Networks\nVersion: 0.1.0\nAuthors@R: person(given=\"Kisung\",family=\"You\",role=c(\"aut\",\"cre\"),email=\"kyou@nd.edu\",comment=c(ORCID=\"0000-0002-8584-459X\"))\nDescription: Network is a prevalent form of data structure in many fields. As an object of analysis, many distance or metric measures have been proposed to define the concept of similarity between two networks. We provide a number of distance measures for networks. See Jurman et al (2011) <doi:10.3233/978-1-60750-692-8-227> for an overview on spectral class of inter-graph distance measures.\nLicense: GPL (>=3)\nEncoding: UTF-8\nLazyData: true\nImports: Matrix, Rcpp, Rdpack, RSpectra, doParallel, foreach, parallel, stats, igraph, network\nLinkingTo: Rcpp, RcppArmadillo\nRdMacros: Rdpack\nRoxygenNote: 6.0.1\n",
+    "created" : 1512667766483.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "126159216",
+    "id" : "5D0BFC7D",
+    "lastKnownWriteTime" : 1512596079,
+    "last_content_update" : 1512596079,
+    "path" : "~/Desktop/NetworkDistance/DESCRIPTION",
+    "project_path" : "DESCRIPTION",
+    "properties" : {
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "dcf"
+}

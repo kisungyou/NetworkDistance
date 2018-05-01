@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' Distance Measures for Networks\n#'\n#' Network has gathered much attention from many disciplines, as many of real data\n#' can be well represented in the relational form. The concept of distance - or, metric - between\n#' two networks is the starting point for inference on population of networks. \\pkg{NetworkDistance} package\n#' provides a not-so-comprehensive collection of distance measures for measuring dissimilarity between two network objects.\n#' Data should be supplied as \\emph{adjacency} matrices, where we support three formats of data representation;\n#' \\code{matrix} object in \\pkg{R} base, \\code{network} class from \\pkg{network} package, and \\code{igraph} class from\n#' \\pkg{igraph} package.\n#'\n#' @docType package\n#' @name NetworkDistance\n#' @import Rdpack\n#' @import Matrix\n#' @import RSpectra\n#' @importFrom igraph as_adjacency_matrix graph_from_adjacency_matrix degree closeness betweenness\n#' @importFrom network as.matrix.network\n#' @importFrom stats as.dist integrate\n#' @importFrom foreach \"%dopar%\" foreach registerDoSEQ\n#' @importFrom parallel detectCores stopCluster makeCluster\n#' @importFrom doParallel registerDoParallel\n#' @importFrom Rcpp evalCpp\n#' @useDynLib NetworkDistance\nNULL\n\n",
+    "created" : 1512667772758.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2680629842",
+    "id" : "8AC4F5AA",
+    "lastKnownWriteTime" : 1512667817,
+    "last_content_update" : 1512667817672,
+    "path" : "~/Desktop/NetworkDistance/R/NetworkDistance.R",
+    "project_path" : "R/NetworkDistance.R",
+    "properties" : {
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

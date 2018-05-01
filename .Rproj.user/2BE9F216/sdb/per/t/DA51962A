@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "/*\n * 01. aux_FrobeniusDiff\n *\n *\n */\n#include <RcppArmadillo.h>\n\n// [[Rcpp::depends(RcppArmadillo)]]\n\nusing namespace Rcpp;\nusing namespace arma;\n\n// [[Rcpp::export]]\ndouble aux_FrobeniusDiff(arma::mat& A, arma::mat& B){\n  double output = arma::norm(A-B,\"fro\");\n  return(output);\n}\n",
+    "created" : 1512667894668.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4068730743",
+    "id" : "DA51962A",
+    "lastKnownWriteTime" : 1512668166,
+    "last_content_update" : 1512668166719,
+    "path" : "~/Desktop/NetworkDistance/src/auxiliary_NetworkDistance.cpp",
+    "project_path" : "src/auxiliary_NetworkDistance.cpp",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "cpp"
+}
