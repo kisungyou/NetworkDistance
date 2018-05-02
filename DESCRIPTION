@@ -1,7 +1,7 @@
 Package: NetworkDistance
 Type: Package
 Title: Distance Measures for Networks
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: person(given="Kisung",family="You",role=c("aut","cre"),email="kyou@nd.edu",comment=c(ORCID="0000-0002-8584-459X"))
 Description: Network is a prevalent form of data structure in many fields. As an object of analysis, many distance or metric measures have been proposed to define the concept of similarity between two networks. We provide a number of distance measures for networks. See Jurman et al (2011) <doi:10.3233/978-1-60750-692-8-227> for an overview on spectral class of inter-graph distance measures.
 License: GPL (>=3)
