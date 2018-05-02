@@ -12,6 +12,51 @@
             }
         ],
         "file" : "/home/kisung/Desktop/NetworkDistance/src/auxiliary_NetworkDistance.cpp",
-        "file_last_write" : 1512668166
+        "file_last_write" : 1525235915
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 8,
+                "file" : "/home/kisung/Desktop/NetworkDistance/src/dist_lapflow.cpp",
+                "kind" : 6,
+                "line" : 10,
+                "name" : "lfdistance(arma::mat &, arma::mat &, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@lfdistance#&$@N@arma@C@Mat>#d#S0_#d#"
+            }
+        ],
+        "file" : "/home/kisung/Desktop/NetworkDistance/src/dist_lapflow.cpp",
+        "file_last_write" : 1525240025
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 12,
+                "file" : "/home/kisung/Desktop/NetworkDistance/src/single_gdd.cpp",
+                "kind" : 6,
+                "line" : 10,
+                "name" : "cpp_gdd(arma::cube &, arma::mat &, arma::vec)",
+                "parent_name" : "",
+                "usr" : "c:@F@cpp_gdd#&$@N@arma@C@Cube>#d#&$@N@arma@C@Mat>#d#$@N@arma@C@Col>#d#"
+            }
+        ],
+        "file" : "/home/kisung/Desktop/NetworkDistance/src/single_gdd.cpp",
+        "file_last_write" : 1525284480
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 8,
+                "file" : "/home/kisung/Desktop/NetworkDistance/src/testerCPP.cpp",
+                "kind" : 6,
+                "line" : 10,
+                "name" : "eigendec(arma::mat &)",
+                "parent_name" : "",
+                "usr" : "c:@F@eigendec#&$@N@arma@C@Mat>#d#"
+            }
+        ],
+        "file" : "/home/kisung/Desktop/NetworkDistance/src/testerCPP.cpp",
+        "file_last_write" : 1525236307
     }
 ]

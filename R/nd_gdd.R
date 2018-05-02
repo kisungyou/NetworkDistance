@@ -59,23 +59,30 @@ nd.gdd <- function(A, out.dist=TRUE, vect=seq(from=0.1,to=1,length.out=10)){
 
   #-------------------------------------------------------
   ## MAIN COMPUTATION
-  N = length(listA)
-  mat_dist = array(0,c(N,N))
-  mat_maxt = array(0,c(N,N))
+  # N = length(listA)
+  # mat_dist = array(0,c(N,N))
+  # mat_maxt = array(0,c(N,N))
+  #
+  # for (i in 1:(N-1)){
+  #   L1 = gdd_laplacian(listA[[i]])
+  #   for (j in (i+1):N){
+  #     L2    = gdd_laplacian(listA[[j]])
+  #     gdd12 = gdd_computedist(L1,L2,vect)
+  #
+  #     mat_dist[i,j] = gdd12$dist
+  #     mat_dist[j,i] = gdd12$dist
+  #     mat_maxt[i,j] = gdd12$maxt
+  #     mat_maxt[j,i] = gdd12$maxt
+  #   }
+  # }
 
-  for (i in 1:(N-1)){
-    L1 = gdd_laplacian(listA[[i]])
-    for (j in (i+1):N){
-      L2    = gdd_laplacian(listA[[j]])
-      gdd12 = gdd_computedist(L1,L2,vect)
+  Lprocess = list_Adj2LapEigs(listA)
+  Lvecs    = Lprocess$vectors
+  Lvals    = Lprocess$values
 
-      mat_dist[i,j] = gdd12$dist
-      mat_dist[j,i] = gdd12$dist
-      mat_maxt[i,j] = gdd12$maxt
-      mat_maxt[j,i] = gdd12$maxt
-    }
-  }
-
+  cpprun   = cpp_gdd(Lvecs, Lvals, vect)
+  mat_dist = cpprun$distmat
+  mat_maxt = cpprun$timemat
   #-------------------------------------------------------
   ## RETURN RESULTS
   if (out.dist){
