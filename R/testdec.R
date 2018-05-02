@@ -1,5 +1,13 @@
 #' tester
 #'
+#' @param A a list of length \eqn{N} containing adjacency matrices.
+#' @param out.dist a logical; \code{TRUE} for computed distance matrix as a \code{dist} object.
+#' @param vect a vector of parameters \eqn{t} whose values will be used.
+#'
+#' @return a named list containing \describe{
+#' \item{D}{an \eqn{(N\times N)} matrix or \code{dist} object containing pairwise distance measures.}
+#' }
+#'
 #' @examples
 #' \dontrun{
 #' set.seed(23)
@@ -51,10 +59,17 @@
 #'    tgtA[idn,idm] = 0
 #'    listA[[i]] = tgtA
 #' }
-#'}
+#'
+#' # compute two diffusion-based distances and visualize
+#' out1 = nd.gdd(listA, out.dist=FALSE)$D
+#' out2 = testdec(listA, out.dist=FALSE)$D
+#' par(mfrow=c(1,2))
+#' image(pracma::flipud(out1),col=gray((0:32)/32), main="Hammond Pairwise Distance",axes=FALSE)
+#' image(pracma::flipud(out2),col=gray((0:32)/32), main="Dianbin Pairwise Distance",axes=FALSE)
+#' }
 #'
 #' @export
-testdec <- function(A){
+testdec <- function(A, out.dist=TRUE, vect=seq(from=0,to=10,length.out=1000)){
   #-------------------------------------------------------
   ## PREPROCESSING
   # 1. list of length larger than 1
@@ -63,22 +78,54 @@ testdec <- function(A){
   }
   # 2. transform the data while checking
   listA = list_transform(A, NIflag="not")
+  # 3. vect
+  if ((!is.vector(vect))||(any(vect<0))||(any(is.na(vect)))||(any(is.infinite(vect)))){
+    stop("* nd.gdd : input 'vect' should be a vector of nonnegative real numbers.")
+  }
+  vect = sort(vect)
 
   #-------------------------------------------------------
   ## MAIN COMPUTATION
+  # N = length(listA)
+  # mat_dist = array(0,c(N,N))
+  #
+  # for (i in 1:(N-1)){
+  #   L1 = as.matrix(gdd_laplacian(listA[[i]]))
+  #   for (j in (i+1):N){
+  #     L2    = as.matrix(gdd_laplacian(listA[[j]]))
+  #
+  #     L12dist = lfdistance(L1,L2,0.1)
+  #     mat_dist[i,j] = L12dist
+  #     mat_dist[j,i] = L12dist
+  #   }
+  # }
+
   N = length(listA)
+  Lprocess = list_Adj2LapEigs(listA)
+  Lvecs    = Lprocess$vectors
+  Lvals    = Lprocess$values
   mat_dist = array(0,c(N,N))
 
   for (i in 1:(N-1)){
-    L1 = as.matrix(gdd_laplacian(listA[[i]]))
+    L1 = as.matrix(Lvecs[,,i])
+    D1 = as.vector(Lvals[,i])
     for (j in (i+1):N){
-      L2    = as.matrix(gdd_laplacian(listA[[j]]))
+      L2 = as.matrix(Lvecs[,,j])
+      D2 = as.vector(Lvals[,j])
 
-      L12dist = lfdistance(L1,L2,0.1)
-      mat_dist[i,j] = L12dist
-      mat_dist[j,i] = L12dist
+      distvalue = lfdistance_new(L1,D1,L2,D2,vect)
+      mat_dist[i,j] = distvalue
+      mat_dist[j,i] = distvalue
     }
   }
 
-  return(mat_dist)
+
+  #-------------------------------------------------------
+  ## Return output
+  if (out.dist){
+    mat_dist = as.dist(mat_dist)
+  }
+  output = list()
+  output$D = mat_dist
+  return(output)
 }

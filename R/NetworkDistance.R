@@ -13,6 +13,7 @@
 #' @import Rdpack
 #' @import Matrix
 #' @import RSpectra
+#' @importFrom pracma flipud
 #' @importFrom igraph as_adjacency_matrix graph_from_adjacency_matrix degree closeness betweenness
 #' @importFrom network as.matrix.network
 #' @importFrom stats as.dist integrate

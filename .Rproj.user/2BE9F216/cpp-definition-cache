@@ -24,10 +24,19 @@
                 "name" : "lfdistance(arma::mat &, arma::mat &, double)",
                 "parent_name" : "",
                 "usr" : "c:@F@lfdistance#&$@N@arma@C@Mat>#d#S0_#d#"
+            },
+            {
+                "column" : 8,
+                "file" : "/home/kisung/Desktop/NetworkDistance/src/dist_lapflow.cpp",
+                "kind" : 6,
+                "line" : 68,
+                "name" : "lfdistance_new(arma::mat &, arma::vec, arma::mat &, arma::vec, arma::vec)",
+                "parent_name" : "",
+                "usr" : "c:@F@lfdistance_new#&$@N@arma@C@Mat>#d#$@N@arma@C@Col>#d#S0_#S2_#S2_#"
             }
         ],
         "file" : "/home/kisung/Desktop/NetworkDistance/src/dist_lapflow.cpp",
-        "file_last_write" : 1525240025
+        "file_last_write" : 1525286901
     },
     {
         "definitions" : [

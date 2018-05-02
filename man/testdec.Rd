@@ -4,7 +4,20 @@
 \alias{testdec}
 \title{tester}
 \usage{
-testdec(A)
+testdec(A, out.dist = TRUE, vect = seq(from = 0, to = 10, length.out =
+  1000))
+}
+\arguments{
+\item{A}{a list of length \eqn{N} containing adjacency matrices.}
+
+\item{out.dist}{a logical; \code{TRUE} for computed distance matrix as a \code{dist} object.}
+
+\item{vect}{a vector of parameters \eqn{t} whose values will be used.}
+}
+\value{
+a named list containing \describe{
+\item{D}{an \eqn{(N\times N)} matrix or \code{dist} object containing pairwise distance measures.}
+}
 }
 \description{
 tester
@@ -60,6 +73,13 @@ for (i in 1:7){
    tgtA[idn,idm] = 0
    listA[[i]] = tgtA
 }
+
+# compute two diffusion-based distances and visualize
+out1 = nd.gdd(listA, out.dist=FALSE)$D
+out2 = testdec(listA, out.dist=FALSE)$D
+par(mfrow=c(1,2))
+image(pracma::flipud(out1),col=gray((0:32)/32), main="Hammond Pairwise Distance",axes=FALSE)
+image(pracma::flipud(out2),col=gray((0:32)/32), main="Dianbin Pairwise Distance",axes=FALSE)
 }
 
 }

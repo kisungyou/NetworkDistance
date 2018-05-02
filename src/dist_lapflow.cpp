@@ -59,3 +59,52 @@ double lfdistance(arma::mat& L1, arma::mat& L2, double inct){
   }
   return(distvalue);
 }
+
+
+
+//' @keywords internal
+//' @noRd
+// [[Rcpp::export]]
+double lfdistance_new(arma::mat& L1, arma::vec D1, arma::mat& L2, arma::vec D2, arma::vec timestamp){
+  // 1. parameters
+  const int nT = timestamp.n_elem;
+  const int N  = L1.n_cols;
+
+  // 2. prepare
+  // 2-1. c1old : depending on the initial value of timestamp
+  double t0 = timestamp(0);
+  arma::mat c1old(N,N,fill::zeros);
+  arma::mat c2old(N,N,fill::zeros);
+  c1old = L1*arma::diagmat(exp(-t0*D1))*L1.t();
+  c2old = L2*arma::diagmat(exp(-t0*D2))*L2.t();
+  arma::mat c1new(N,N,fill::zeros);
+  arma::mat c2new(N,N,fill::zeros);
+  arma::mat dmatold = c1old-c2old;; // difference between c1old and c2old
+  arma::mat dmatnew(N,N,fill::zeros); // difference between c1new and c2new
+  arma::mat dmatprocess(N,N,fill::zeros); // abs(dmatold-dmatnew) with zeroed diagonals
+
+  // 3. iterate
+  double distvalue = 0.0;
+  for (int i=1;i<nT;i++){
+    // 3-1. current timestamp and new "c" matrices
+    double tnow = timestamp(i);
+    c1new = L1*arma::diagmat(exp(-tnow*D1))*L1.t();
+    c2new = L2*arma::diagmat(exp(-tnow*D2))*L2.t();
+
+    // 3-2. incremental change
+    dmatnew = c1new-c2new;
+
+    // 3-3. final update for incremental change
+    dmatprocess = arma::abs(dmatold-dmatnew);
+    dmatprocess.diag().zeros(); // fill with zeros
+
+    // 3-4. update distance values
+    distvalue += arma::accu(dmatprocess);
+
+    // 3-5. update old&new ones
+    c1old = c1new;
+    c2old = c2new;
+    dmatold = dmatnew;
+  }
+  return(distvalue);
+}
