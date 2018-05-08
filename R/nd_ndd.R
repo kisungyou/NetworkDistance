@@ -1,6 +1,7 @@
-#' tester
+#' Network Diffusion Distance
 #'
 #' @param A a list of length \eqn{N} containing adjacency matrices.
+#' @param order the order of Laplacian; currently only 0 and 1 are supported.
 #' @param out.dist a logical; \code{TRUE} for computed distance matrix as a \code{dist} object.
 #' @param vect a vector of parameters \eqn{t} whose values will be used.
 #'
@@ -69,7 +70,7 @@
 #' }
 #'
 #' @export
-testdec <- function(A, out.dist=TRUE, vect=seq(from=0,to=10,length.out=1000)){
+nd.ndd <- function(A, order=0, out.dist=TRUE, vect=seq(from=0,to=10,length.out=1000)){
   #-------------------------------------------------------
   ## PREPROCESSING
   # 1. list of length larger than 1
@@ -101,7 +102,16 @@ testdec <- function(A, out.dist=TRUE, vect=seq(from=0,to=10,length.out=1000)){
   # }
 
   N = length(listA)
-  Lprocess = list_Adj2LapEigs(listA)
+  if (order==0){
+    Lprocess = list_Adj2LapEigs(listA)
+  } else if (order==1){
+    if (length(unique(unlist(lapply(listA, sum))))!=1){
+      stop("* nd.ndd : for the order 1 case, all networks must have same number of edges.")
+    }
+    Lprocess = list_Adj2LapEigsOrder1(listA)
+  } else {
+    stop("* nd.ndd : orders other than k=0,1 are not supported.")
+  }
   Lvecs    = Lprocess$vectors
   Lvals    = Lprocess$values
   mat_dist = array(0,c(N,N))

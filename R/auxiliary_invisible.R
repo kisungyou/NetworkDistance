@@ -10,6 +10,7 @@
 # 05. laplacian_signless
 # 06. list_Adj2LapEigs : given a list of adjacency matrices, compute stacked eigenvectors and eigenvalues
 #                        mainly used for "gdd" (graph diffusion distance) and laplacian flows.
+# 07. list_Adj2LapEigsOrder1 : L1
 
 
 
@@ -129,3 +130,39 @@ list_Adj2LapEigs <- function(listA, normalized=FALSE){
   output$vectors = eigvecs
   return(output)
 }
+
+
+
+# 07. list_Adj2LapEigsOrder1 ----------------------------------------------
+#' @keywords internal
+#' @noRd
+list_Adj2LapEigsOrder1 <- function(listA){
+  # parameters
+  N = length(listA)
+
+  # compute graph laplacians
+  Ls = list()
+  for (i in 1:N){
+    tgt = listA[[i]]
+    diag(tgt) = 0
+    Ls[[i]] = aux_lapL1(tgt)
+  }
+  p = nrow(Ls[[i]])
+
+  # now do eigendecomposition for each
+  eigvals = array(0,c(p,N))   # stack as columns
+  eigvecs = array(0,c(p,p,N)) # stack as slices
+  for (i in 1:N){
+    tgteig = eigen(Ls[[i]])
+    eigvals[,i]  = as.vector(tgteig$values)
+    eigvecs[,,i] = as.matrix(tgteig$vectors)
+  }
+
+  # return
+  output = list()
+  output$values = eigvals
+  output$vectors = eigvecs
+  return(output)
+}
+
+
