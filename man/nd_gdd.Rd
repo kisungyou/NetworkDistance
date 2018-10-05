@@ -4,7 +4,8 @@
 \alias{nd.gdd}
 \title{Graph Diffusion Distance}
 \usage{
-nd.gdd(A, out.dist = TRUE, vect = seq(from = 0.1, to = 1, length.out = 10))
+nd.gdd(A, out.dist = TRUE, vect = seq(from = 0.1, to = 1, length.out =
+  10))
 }
 \arguments{
 \item{A}{a list of length \eqn{N} containing adjacency matrices.}

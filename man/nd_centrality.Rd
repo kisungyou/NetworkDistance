@@ -4,8 +4,8 @@
 \alias{nd.centrality}
 \title{Centrality Distance}
 \usage{
-nd.centrality(A, out.dist = TRUE, mode = c("Degree", "Close", "Between"),
-  directed = FALSE)
+nd.centrality(A, out.dist = TRUE, mode = c("Degree", "Close",
+  "Between"), directed = FALSE)
 }
 \arguments{
 \item{A}{a list of length \eqn{N} containing \eqn{(M\times M)} adjacency matrices.}

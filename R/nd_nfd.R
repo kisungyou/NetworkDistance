@@ -1,4 +1,4 @@
-#' Network Diffusion Distance
+#' Network Flow Distance
 #'
 #' @param A a list of length \eqn{N} containing adjacency matrices.
 #' @param order the order of Laplacian; currently only 0 and 1 are supported.
@@ -70,18 +70,18 @@
 #' }
 #'
 #' @export
-nd.ndd <- function(A, order=0, out.dist=TRUE, vect=seq(from=0,to=10,length.out=1000)){
+nd.nfd <- function(A, order=0, out.dist=TRUE, vect=seq(from=0,to=10,length.out=1000)){
   #-------------------------------------------------------
   ## PREPROCESSING
   # 1. list of length larger than 1
   if ((!is.list(A))||(length(A)<=1)){
-    stop("* nd.csd : input 'A' should be a list of length larger than 1.")
+    stop("* nd.nfd : input 'A' should be a list of length larger than 1.")
   }
   # 2. transform the data while checking
   listA = list_transform(A, NIflag="not")
   # 3. vect
   if ((!is.vector(vect))||(any(vect<0))||(any(is.na(vect)))||(any(is.infinite(vect)))){
-    stop("* nd.gdd : input 'vect' should be a vector of nonnegative real numbers.")
+    stop("* nd.nfd : input 'vect' should be a vector of nonnegative real numbers.")
   }
   vect = sort(vect)
 
@@ -106,11 +106,11 @@ nd.ndd <- function(A, order=0, out.dist=TRUE, vect=seq(from=0,to=10,length.out=1
     Lprocess = list_Adj2LapEigs(listA)
   } else if (order==1){
     if (length(unique(unlist(lapply(listA, sum))))!=1){
-      stop("* nd.ndd : for the order 1 case, all networks must have same number of edges.")
+      stop("* nd.nfd : for the order 1 case, all networks must have same number of edges.")
     }
     Lprocess = list_Adj2LapEigsOrder1(listA)
   } else {
-    stop("* nd.ndd : orders other than k=0,1 are not supported.")
+    stop("* nd.nfd : orders other than k=0,1 are not supported.")
   }
   Lvecs    = Lprocess$vectors
   Lvals    = Lprocess$values
