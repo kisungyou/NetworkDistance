@@ -24,9 +24,14 @@ The method employs spectral density of eigenvalues from
 Laplacian in that for each, we have corresponding
 spectral density \eqn{\rho(w)} as a sum of
 narrow Lorentz distributions with \code{bandwidth} parameter.
+Since it involves integration of a function over the
+non-compact domain, it may blow up to infinity and the code
+automatically aborts the process.
 }
 \examples{
+\dontrun{
 ## generate two types of adjacency matrices of size (3-by-3)
+set.seed(45)
 rbin1 = rbinom(9,1,0.8); mat1 = matrix(rbin1,nrow=3)
 rbin2 = rbinom(9,1,0.2); mat2 = matrix(rbin2,nrow=3)
 
@@ -40,6 +45,7 @@ for (i in 4:6){A[[i]]=mattype2} # next  3 are type-2
 ## Compute Distance Matrix and Visualize
 output = nd.csd(A, out.dist=FALSE, bandwidth=1.0)
 image(output$D, main="two group case")
+}
 
 }
 \references{

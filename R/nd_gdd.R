@@ -6,7 +6,7 @@
 #' \deqn{L := D-A}
 #' where \eqn{D_{ii}=\sum_j A_{ij}}. For two adjacency matrices \eqn{A_1} and \eqn{A_2},
 #' GDD is defined as
-#' \deqn{d_{gdd}(A_1,A_2) = max_t \sqrt{\| \exp(-tL_1) -\exp(-tL_2)   \|_F}}
+#' \deqn{d_{gdd}(A_1,A_2) = max_t \sqrt{\| \exp(-tL_1) -\exp(-tL_2)   \|_F^2}}
 #' where \eqn{\exp(\cdot)} is matrix exponential, \eqn{\|\cdot\|_F} a Frobenius norm, and \eqn{L_1} and \eqn{L_2}
 #' Laplacian matrices corresponding to \eqn{A_1} and \eqn{A_2}, respectively.
 #'
@@ -131,7 +131,7 @@ gdd_computedist <- function(L1, L2, vect){
   }
   maxt = vect[idxmaxt]
   # 4. compute the distance
-  output = sqrt(Matrix::norm(Matrix::expm(-maxt*L1)-Matrix::expm(-maxt*L2),"f"))
+  output = (Matrix::norm(Matrix::expm(-maxt*L1)-Matrix::expm(-maxt*L2),"f"))
 
   # 5. return both distance value and corresponding t value
   result = list()

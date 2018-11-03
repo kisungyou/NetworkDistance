@@ -4,9 +4,14 @@
 #' Laplacian in that for each, we have corresponding
 #' spectral density \eqn{\rho(w)} as a sum of
 #' narrow Lorentz distributions with \code{bandwidth} parameter.
+#' Since it involves integration of a function over the
+#' non-compact domain, it may blow up to infinity and the code
+#' automatically aborts the process.
 #'
 #' @examples
+#' \dontrun{
 #' ## generate two types of adjacency matrices of size (3-by-3)
+#' set.seed(45)
 #' rbin1 = rbinom(9,1,0.8); mat1 = matrix(rbin1,nrow=3)
 #' rbin2 = rbinom(9,1,0.2); mat2 = matrix(rbin2,nrow=3)
 #'
@@ -20,6 +25,7 @@
 #' ## Compute Distance Matrix and Visualize
 #' output = nd.csd(A, out.dist=FALSE, bandwidth=1.0)
 #' image(output$D, main="two group case")
+#' }
 #'
 #' @param A a list of length \eqn{N} containing \eqn{(M\times M)} adjacency matrices.
 #' @param out.dist a logical; \code{TRUE} for computed distance matrix as a \code{dist} object.
@@ -55,28 +61,40 @@ nd.csd <- function(A, out.dist=TRUE, bandwidth=1.0){
   #   1. setup
   N = length(listA)
   M = nrow(listA[[1]])
-  mat_seig = array(0,c(N,(M-1)))
+  mat_seig = list()
   mat_dist = array(0,c(N,N))
+  vec_Ks   = rep(0,N)
 
   #   2. eigenvalue computations at once + transform into Vibrational Spectra
   for (i in 1:N){
-    L            = as.matrix(laplacian_unnormalized(listA[[i]]))
-    mat_seig[i,] = sqrt(as.vector(RSpectra::eigs(L,(M-1))$values))
+    L             = as.matrix(laplacian_unnormalized(listA[[i]]))
+    mat_seig[[i]] = sqrt(as.vector(RSpectra::eigs(L,(M-1))$values))
+    vec_Ks[i]     = tryCatch(compute_normc(mat_seig[[i]], bandwidth),
+                             error=function(e){stop("* csd : non-finite normalizing constant. please use other methods.")})
   }
 
   #   3. pairwise computation
   for (i in 1:(N-1)){
-    spect1 = mat_seig[i,]
-    func1  = function(x){sum_of_Lorentz(x, spectra=spect1, bdwidth=bandwidth)}
-    fnorm1 = function(x){func1(x)/integrate(func1, lower=0, upper=Inf)$value}
-
+    spect1 = mat_seig[[i]]
+    K1     = vec_Ks[i]
     for (j in (i+1):N){
-      spect2 = mat_seig[j,]
-      func2  = function(x){sum_of_Lorentz(x, spectra=spect2, bdwidth=bandwidth)}
-      fnorm2 = function(x){func2(x)/integrate(func2, lower=0, upper=Inf)$value}
+      spect2 = mat_seig[[j]]
+      K2     = vec_Ks[2]
 
-      integrand = function(x){(fnorm1(x)-fnorm2(x))^2}
-      solution  = sqrt(integrate(integrand, lower=0, upper=Inf)$value)
+      integrand = function(w, k1, k2, sp1, sp2, bd){
+        N = length(sp1); output = 0;
+        for (i in 1:N){
+          output = output + (k1*(w/(((w-sp1[i])^2)+(bd^2)))) - (k2*(w/(((w-sp2[i])^2)+(bd^2))))
+        }
+        return((output^2))
+      }
+      sol = stats::integrate(integrand, lower=0, upper=Inf, subdivisions=1234,
+                             k1=K1, k2=K2, sp1=spect1, sp2=spect2, bd=bandwidth)$value
+      if ((is.na(sol))||(is.infinite(sol))){
+        solution = NA
+      } else {
+        solution = sqrt(sol)
+      }
       mat_dist[i,j] = solution
       mat_dist[j,i] = solution
     }
@@ -98,10 +116,11 @@ nd.csd <- function(A, out.dist=TRUE, bandwidth=1.0){
 #  ------------------------------------------------------------------------
 #' @keywords internal
 #' @noRd
-sum_of_Lorentz <- function(x, spectra, bdwidth){
-  output = 0
-  for (i in 1:length(spectra)){
-    output = output + (bdwidth/(((x-spectra[i])^2) + (bdwidth^2)))
+compute_normc <- function(sp, bd){
+  Kinv = stats::integrate(function(w,bd,sp){output=0;N=length(sp);
+  for (i in 1:N){
+    output = output + (w/(((w-sp[i])^2)+(bd^2)))
   }
-  return(output)
+  return(output)}, lower = 0, upper = Inf, bd=bd, sp=sp, subdivisions=1234)
+  return(1/Kinv$value)
 }

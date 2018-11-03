@@ -43,6 +43,7 @@ nd.dsd <- function(A, out.dist=TRUE, type=c("Adj","Lap","SLap","NLap")){
   if ((!is.list(A))||(length(A)<=1)){
     stop("* nd.csd : input 'A' should be a list of length larger than 1.")
   }
+  type = match.arg(type)
   # 2. transform the data while checking
   listA = list_transform(A, NIflag="not")
   N     = length(listA)    # number of networks
