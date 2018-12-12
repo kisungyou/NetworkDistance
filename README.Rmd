@@ -9,7 +9,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  out.width = "88%"
 )
 ```
 # NetworkDistance
@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 [![](https://cranlogs.r-pkg.org/badges/NetworkDistance)](https://cran.r-project.org/package=NetworkDistance)
 
 NetworkDistance package is a collection of *inter-*, *between-*graph distance measures. Instead of graph distance that measures 
-the degree of farness between nodes within a graph, we consider each network as an object and compute distance between those objects.
+the degree of farness between nodes within a graph, we consider each network as an object and compute distance between those objects. 
 
 ## Installation
 
@@ -73,6 +73,22 @@ image(as.matrix(dist.wsd$D)[,20:1],main="nd.wsd",axes=FALSE,col=gray(0:100/100))
 image(as.matrix(dist.dsd$D)[,20:1],main="nd.dsd",axes=FALSE,col=gray(0:100/100)) 
 image(as.matrix(dist.nfd$D)[,20:1],main="nd.nfd",axes=FALSE,col=gray(0:100/100)) 
 ```
+
+## Currently Available Methods
+We support following methds at this stage and the collection will be expanded continuously.
+
+|Function       | Reference                  | Description                                     |
+|---------------|:--------------------------:|-------------------------------------------------|
+|`nd.centrality`| Roy et al. (2014)          | Distance by Network Centrality Measures         |
+|`nd.csd`       | Ipsen and Mikhailov (2002) | $L_2$ Distance of Continuous Spectral Densities |
+|`nd.dsd`       | Wilson and Zhu (2008)      | Discrete Spectral Distance                      |
+|`nd.edd`       |                            | Edge Difference Distance                        |
+|`nd.extremal`  | Jakobson and Rivin (2002)  | Extremal Distance with Top-$k$ Eigenvalues      |
+|`nd.gdd`       | Hammond et al. (2013)      | Graph Diffusion Distance                        |
+|`nd.hamming`   | Hamming (1950)             | Hamming Distance                                |
+|`nd.him`       | Jurman et al. (2015)       | Hamming-Ipsen-Mikhailov (HIM) Distance          | 
+|`nd.nfd`       | Bao et al. (2018)          | Network Flow Distance                           |
+|`nd.wsd`       | Fay et al. (2010)          | Distance with Weighted Spectral Distribution    |
 
 ## Code of Conduct
 Please note that the 'NetworkDistance' project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
