@@ -29,6 +29,7 @@ it is defined as
 where \eqn{H} and \eqn{IM} stand for Hamming and I-M distance, respectively.
 }
 \examples{
+\dontrun{
 ## generate two types of adjacency matrices of size (3-by-3)
 rbin1 = rbinom(9,1,0.8); mat1 = matrix(rbin1,nrow=3)
 rbin2 = rbinom(9,1,0.2); mat2 = matrix(rbin2,nrow=3)
@@ -43,6 +44,7 @@ for (i in 4:6){A[[i]]=mattype2} # next  3 are type-2
 ## compute distance and visualize
 output = nd.him(A, out.dist=FALSE)
 image(output$D, main="two group case")
+}
 
 }
 \references{

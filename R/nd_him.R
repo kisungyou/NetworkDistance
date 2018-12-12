@@ -17,6 +17,7 @@
 #' }
 #'
 #' @examples
+#' \dontrun{
 #' ## generate two types of adjacency matrices of size (3-by-3)
 #' rbin1 = rbinom(9,1,0.8); mat1 = matrix(rbin1,nrow=3)
 #' rbin2 = rbinom(9,1,0.2); mat2 = matrix(rbin2,nrow=3)
@@ -31,6 +32,7 @@
 #' ## compute distance and visualize
 #' output = nd.him(A, out.dist=FALSE)
 #' image(output$D, main="two group case")
+#' }
 #'
 #' @references
 #' \insertRef{jurman_him_2015}{NetworkDistance}
@@ -75,7 +77,7 @@ nd.him <- function(A, out.dist=TRUE, xi=1.0, ntest=10){
   im_score = rep(0,ntest)
   for (i in 1:ntest){
     im_scoremat <- nd.csd(A_IMfind, out.dist=FALSE, bandwidth = im_grid[i])$D
-    im_score    <- im_scoremat[1,2]
+    im_score[i] <- im_scoremat[1,2]
   }
   im_index = which(abs(im_score-1)==(min(abs(im_score - 1))))
   im_optbd = im_grid[im_index]
