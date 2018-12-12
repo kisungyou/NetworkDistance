@@ -11,6 +11,7 @@
 # 06. list_Adj2LapEigs : given a list of adjacency matrices, compute stacked eigenvectors and eigenvalues
 #                        mainly used for "gdd" (graph diffusion distance) and laplacian flows.
 # 07. list_Adj2LapEigsOrder1 : L1
+# 08. list_Adj2SPD           : make laplacian strictly positive semidefinite (global regularization)
 
 
 
@@ -165,4 +166,64 @@ list_Adj2LapEigsOrder1 <- function(listA){
   return(output)
 }
 
+
+# 08. list_Adj2SPD --------------------------------------------------------
+#     make laplacian strictly positive semidefinite (global regularization)
+#' @keywords internal
+#' @noRd
+list_Adj2SPD  <- function(listA, normalized=FALSE, stack3d=TRUE){
+  # parameters
+  N = length(listA)
+  p = nrow(listA[[1]])
+
+  # compute graph laplacians
+  Ls = list()
+  if (normalized==FALSE){
+    for (i in 1:N){
+      tgt = listA[[i]]
+      diag(tgt) = 0
+      Ls[[i]] = laplacian_unnormalized(tgt)
+    }
+  } else if (normalized==TRUE){
+    for (i in 1:N){
+      tgt = listA[[i]]
+      diag(tgt) = 0
+      Ls[[i]] = laplacian_normalized(tgt)
+    }
+  } else {
+    stop("")
+  }
+
+  # now do eigendecomposition for each
+  eigvals = array(0,c(p,N))   # stack as columns
+  eigvecs = array(0,c(p,p,N)) # stack as slices
+  for (i in 1:N){
+    tgteig = eigen(Ls[[i]])
+    eigvals[,i]  = as.vector(tgteig$values)
+    eigvecs[,,i] = as.matrix(tgteig$vectors)
+  }
+
+  # return
+  if (min(eigvals) <= 0){ # return graph laplacians as usual
+    eigvals   = eigvals + abs(min(eigvals))
+    for (i in 1:N){
+      tgt.vals = as.vector(eigvals[,i])
+      tgt.vecs = eigvecs[,,i]
+      Ls[[i]] = tgt.vecs%*%diag(tgt.vals)%*%t(tgt.vecs)
+    }
+  }
+
+  # stack 3d
+  if (stack3d==TRUE){
+    output = array(0,c(p,p,N))
+    for (i in 1:N){
+      output[,,i] = Ls[[i]]
+    }
+  } else {
+    output = Ls
+  }
+
+  # return
+  return(output)
+}
 
