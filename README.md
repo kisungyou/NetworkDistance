@@ -5,7 +5,7 @@ NetworkDistance
 
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/NetworkDistance?color=green)](https://cran.r-project.org/package=NetworkDistance) [![Travis-CI Build Status](https://travis-ci.org/kisungyou/NetworkDistance.svg?branch=master)](https://travis-ci.org/kisungyou/NetworkDistance) [![](https://cranlogs.r-pkg.org/badges/NetworkDistance)](https://cran.r-project.org/package=NetworkDistance)
 
-NetworkDistance package is a collection of *inter-*, *between-*graph distance measures. Instead of graph distance that measures the degree of farness between nodes within a graph, we consider each network as an object and compute distance between those objects.
+NetworkDistance package is a collection of **inter-graph** distance measures. Instead of graph distance that measures the degree of farness between nodes within a graph, we consider each network as an object and compute distance between those objects.
 
 Installation
 ------------
