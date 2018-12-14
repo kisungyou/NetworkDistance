@@ -68,6 +68,9 @@ list_transform <- function(A, NIflag="allowed"){
 #' @noRd
 laplacian_unnormalized <- function(matA){
   matD = diag(rowSums(matA))-matA
+  if (RSpectra::eigs_sym(matD, 1, which="SM")$values < 0){
+    matD = Matrix::nearPD(matD, posd.tol=28*.Machine$double.eps)$mat
+  }
   return(matD)
 }
 # 04. laplacian_normalized ------------------------------------------------
@@ -80,6 +83,9 @@ laplacian_normalized <- function(matA){
 
   D     = diag(dd)
   output = Dinv2%*%(D-matA)%*%Dinv2
+  if (RSpectra::eigs_sym(output, 1, which="SM")$values < 0){
+    output = Matrix::nearPD(output, posd.tol=28*.Machine$double.eps)$mat
+  }
   return(output)
 }
 # 05. laplacian_signless --------------------------------------------------
@@ -194,36 +200,7 @@ list_Adj2SPD  <- function(listA, normalized=FALSE, stack3d=TRUE){
     stop("")
   }
 
-  # now do eigendecomposition for each
-  eigvals = array(0,c(p,N))   # stack as columns
-  eigvecs = array(0,c(p,p,N)) # stack as slices
-  for (i in 1:N){
-    tgteig = eigen(Ls[[i]])
-    eigvals[,i]  = as.vector(tgteig$values)
-    eigvecs[,,i] = as.matrix(tgteig$vectors)
-  }
-
   # return
-  if (min(eigvals) <= 0){ # return graph laplacians as usual
-    eigvals   = eigvals + abs(min(eigvals))
-    for (i in 1:N){
-      tgt.vals = as.vector(eigvals[,i])
-      tgt.vecs = eigvecs[,,i]
-      Ls[[i]] = tgt.vecs%*%diag(tgt.vals)%*%t(tgt.vecs)
-    }
-  }
-
-  # stack 3d
-  if (stack3d==TRUE){
-    output = array(0,c(p,p,N))
-    for (i in 1:N){
-      output[,,i] = Ls[[i]]
-    }
-  } else {
-    output = Ls
-  }
-
-  # return
-  return(output)
+  return(Ls)
 }
 
