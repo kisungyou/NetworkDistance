@@ -19,27 +19,21 @@
 #'
 #'
 #' @examples
-#' ## generate two types of adjacency matrices of size (3-by-3)
-#' rbin1 = rbinom(9,1,0.8); mat1 = matrix(rbin1,nrow=3)
-#' rbin2 = rbinom(9,1,0.2); mat2 = matrix(rbin2,nrow=3)
-#'
-#' mattype1 = ceiling((mat1+t(mat1))/2); diag(mattype1)=0;
-#' mattype2 = ceiling((mat2+t(mat2))/2); diag(mattype2)=0;
-#'
-#' A = list()
-#' for (i in 1:3){A[[i]]=mattype1} # first 3 are type-1
-#' for (i in 4:6){A[[i]]=mattype2} # next  3 are type-2
+#' \dontrun{
+#' ## load example data
+#' data(graph20)
 #'
 #' ## use 3 types of centrality measures
-#' out1 <- nd.centrality(A,out.dist=FALSE,mode="Degree")
-#' out2 <- nd.centrality(A,out.dist=FALSE,mode="Close")
-#' out3 <- nd.centrality(A,out.dist=FALSE,mode="Between")
+#' out1 <- nd.centrality(graph20, out.dist=FALSE,mode="Degree")
+#' out2 <- nd.centrality(graph20, out.dist=FALSE,mode="Close")
+#' out3 <- nd.centrality(graph20, out.dist=FALSE,mode="Between")
 #'
 #' ## visualize
-#' par(mfrow=c(1,3))
-#' image(out1$D, main="Degree")
-#' image(out2$D, main="Closeness")
-#' image(out3$D, main="Betweenness")
+#' par(mfrow=c(1,3), pty="s")
+#' image(out1$D[,20:1], main="Degree", col=gray(0:32/32), axes=FALSE)
+#' image(out2$D[,20:1], main="Close", col=gray(0:32/32), axes=FALSE)
+#' image(out3$D[,20:1], main="Between", col=gray(0:32/32), axes=FALSE)
+#' }
 #'
 #' @references
 #' \insertRef{roy_modeling_2014}{NetworkDistance}
@@ -49,6 +43,7 @@
 nd.centrality <- function(A, out.dist=TRUE,
                           mode=c("Degree","Close","Between"),
                           directed=FALSE){
+
   #-------------------------------------------------------
   ## PREPROCESSING
   # 1. list of length larger than 1
@@ -65,9 +60,9 @@ nd.centrality <- function(A, out.dist=TRUE,
   }
   # 4. mode
   if (missing(mode)){
-    mode = "Degree"
+    finmode = "degree"
   } else {
-    mode = match.arg(mode)
+    finmode = match.arg(mode)
   }
 
   #-------------------------------------------------------
@@ -84,11 +79,11 @@ nd.centrality <- function(A, out.dist=TRUE,
       tgt = graph_from_adjacency_matrix(listA[[i]], mode="directed")
     }
     #   2-2. compute features & record
-    if (mode=="Degree"){
+    if (finmode=="Degree"){
       mat_features[i,] = as.vector(igraph::degree(tgt))
-    } else if (mode=="Close"){
+    } else if (finmode=="Close"){
       mat_features[i,] = as.vector(igraph::closeness(tgt))
-    } else if (mode=="Between"){
+    } else if (finmode=="Between"){
       mat_features[i,] = as.vector(igraph::betweenness(tgt))
     }
   }

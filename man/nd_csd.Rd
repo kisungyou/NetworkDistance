@@ -30,12 +30,13 @@ automatically aborts the process.
 }
 \examples{
 \dontrun{
-## load data
+## load example data
 data(graph20)
 
 ## Compute Distance Matrix and Visualize
 output = nd.csd(graph20, out.dist=FALSE, bandwidth=1.0)
-image(output$D, main="two group case")
+par(pty="s")
+image(output$D[,20:1], main="two group case", axes=FALSE, col=gray(0:32/32))
 }
 
 }

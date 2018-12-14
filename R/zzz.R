@@ -10,7 +10,7 @@
   this.version = packageVersion("NetworkDistance")
 
   ## Print on Screen
-  packageStartupMessage("** NetworkDistance : Distance Measures for Networks")
+  packageStartupMessage("** NetworkDistance - Distance Measures for Networks")
   packageStartupMessage("** Version    : ",this.version," (",this.year,")",sep="")
   packageStartupMessage("** Maintainer : Kisung You (kyou@nd.edu)")
   packageStartupMessage("**")

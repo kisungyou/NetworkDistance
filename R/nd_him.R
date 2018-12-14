@@ -18,20 +18,12 @@
 #'
 #' @examples
 #' \dontrun{
-#' ## generate two types of adjacency matrices of size (3-by-3)
-#' rbin1 = rbinom(9,1,0.8); mat1 = matrix(rbin1,nrow=3)
-#' rbin2 = rbinom(9,1,0.2); mat2 = matrix(rbin2,nrow=3)
+#' ## load example data
+#' data(graph20)
 #'
-#' mattype1 = ceiling((mat1+t(mat1))/2); diag(mattype1)=0;
-#' mattype2 = ceiling((mat2+t(mat2))/2); diag(mattype2)=0;
-#'
-#' A = list()
-#' for (i in 1:3){A[[i]]=mattype1} # first 3 are type-1
-#' for (i in 4:6){A[[i]]=mattype2} # next  3 are type-2
-#'
-#' ## compute distance and visualize
-#' output = nd.him(A, out.dist=FALSE)
-#' image(output$D, main="two group case")
+#' ## compute distance matrix and visualize
+#' output = nd.him(graph20, out.dist=FALSE)
+#' image(output$D[,20:1], main="two group case", axes=FALSE, col=gray(0:32/32))
 #' }
 #'
 #' @references

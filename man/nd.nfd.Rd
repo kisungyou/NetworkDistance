@@ -26,62 +26,16 @@ Network Flow Distance
 }
 \examples{
 \dontrun{
-set.seed(23)
-Total<-20
-N1<-Total/2
-P1<-0.75
-P2<-0.6
-P12=0.04
-Iteration<-2
-CAP<-4
-
-bb<-list()         ## edges to remove
-bb[[1]]<-c(1,1)
-bb[[2]]<-c(4,19)
-bb[[3]]<-c(12,17)
-bb[[4]]<-c(13,18)
-bb[[5]]<-c(1,3)
-bb[[6]]<-c(15,8)
-bb[[7]]<-c(2,6)
-
-
-A<-matrix(0,nrow=Total,ncol=Total)                       ######### define adjacent matrix
-for(i in (1:(N1-1)))
-{for(j in ((i+1):N1))
-{A[i,j]<-rbinom(1,1,P1)
-A[j,i]<-A[i,j]}
-}
-
-for(i in ((N1+1):(Total-1)))
-{for(j in ((i+1):Total))
-{ A[i,j]<-rbinom(1,1,P2)
-A[j,i]<-A[i,j]
-}
-}
-for(i in (1:N1))
-{for(j in (N1+1):Total)
-{A[i,j]<-rbinom(1,1,P12)
-A[j,i]<-A[i,j]
-}
-}
-
-listA = list()
-for (i in 1:7){
-   tgtA = A
-   idm  = bb[[i]][1]
-   idn  = bb[[i]][2]
-
-   tgtA[idm,idn] = 0
-   tgtA[idn,idm] = 0
-   listA[[i]] = tgtA
-}
+## load example data
+data(graph20)
 
 # compute two diffusion-based distances and visualize
-out1 = nd.gdd(listA, out.dist=FALSE)$D
-out2 = testdec(listA, out.dist=FALSE)$D
-par(mfrow=c(1,2))
-image(pracma::flipud(out1),col=gray((0:32)/32), main="Hammond Pairwise Distance",axes=FALSE)
-image(pracma::flipud(out2),col=gray((0:32)/32), main="Dianbin Pairwise Distance",axes=FALSE)
+out1 = nd.gdd(graph20, out.dist=FALSE)
+out2 = nd.nfd(graph20, out.dist=FALSE)
+
+par(mfrow=c(1,2), pty="s")
+image(out1$D[,20:1],col=gray((0:32)/32), main="nd.gdd",axes=FALSE)
+image(out2$D[,20:1],col=gray((0:32)/32), main="nd.nfd",axes=FALSE)
 }
 
 }

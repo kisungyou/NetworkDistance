@@ -67,9 +67,9 @@ list_transform <- function(A, NIflag="allowed"){
 #' @keywords internal
 #' @noRd
 laplacian_unnormalized <- function(matA){
-  matD = diag(rowSums(matA))-matA
-  if (RSpectra::eigs_sym(matD, 1, which="SM")$values < 0){
-    matD = Matrix::nearPD(matD, posd.tol=28*.Machine$double.eps)$mat
+  matD = as.matrix(diag(rowSums(matA))-matA)
+  if ((as.double(RSpectra::eigs(matD, 1, which="SM")$values)) < 0){
+    matD = as.matrix(Matrix::nearPD(matD, posd.tol=28*.Machine$double.eps)$mat)
   }
   return(matD)
 }
@@ -82,9 +82,9 @@ laplacian_normalized <- function(matA){
   Dinv2[which(is.infinite(Dinv2))]=0
 
   D     = diag(dd)
-  output = Dinv2%*%(D-matA)%*%Dinv2
-  if (RSpectra::eigs_sym(output, 1, which="SM")$values < 0){
-    output = Matrix::nearPD(output, posd.tol=28*.Machine$double.eps)$mat
+  output = as.matrix(Dinv2%*%(D-matA)%*%Dinv2)
+  if ((as.double(RSpectra::eigs(output, 1, which="SM")$values)) < 0){
+    output = as.matrix(Matrix::nearPD(output, posd.tol=28*.Machine$double.eps)$mat)
   }
   return(output)
 }
