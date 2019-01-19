@@ -108,3 +108,35 @@ double lfdistance_new(arma::mat& L1, arma::vec D1, arma::mat& L2, arma::vec D2, 
   }
   return(distvalue);
 }
+
+
+
+//' @keywords internal
+//' @noRd
+// [[Rcpp::export]]
+arma::mat lfdistance_new_faster(arma::cube& vecs, arma::mat& vals, arma::vec timestamps){
+  // 1. parameters
+  const int N = vecs.n_slices; // number of networks
+  const int p = vecs.n_cols;   // dimensionality
+
+  arma::mat L1(p,p,fill::zeros);
+  arma::mat L2(p,p,fill::zeros);
+  arma::vec D1(p,fill::zeros);
+  arma::vec D2(p,fill::zeros);
+
+  // 2. compute with lfdistance_new
+  arma::mat distmat(N,N,fill::zeros);
+  for (int i=0;i<(N-1);i++){
+    L1 = vecs.slice(i);
+    D1 = vals.col(i);
+    for (int j=(i+1);j<N;j++){
+      L2 = vecs.slice(j);
+      D2 = vals.col(j);
+
+      double dval = lfdistance_new(L1, D1, L2, D2, timestamps);
+      distmat(i,j) = dval;
+      distmat(j,i) = dval;
+    }
+  }
+  return(distmat);
+}

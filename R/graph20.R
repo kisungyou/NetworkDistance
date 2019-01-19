@@ -32,18 +32,18 @@
 #' }
 "graph20"
 
-# graph20 = list()
-# for (i in 1:10){ # type-1 adjacency matrices
-#  rbin   = rbinom(784,1,0.8)
-#  mat    = matrix(rbin, nrow=28)
+# graph100 = list()
+# for (i in 1:50){ # type-1 adjacency matrices
+#  rbin   = rbinom(10000,1,0.8)
+#  mat    = matrix(rbin, nrow=100)
 #  matout = mat*t(mat)
 #  diag(matout) = 0
-#  graph20[[i]]=matout
+#  graph100[[i]]=matout
 # }
-# for (i in 11:20){ # type-2 adjacency matrices
-#  rbin   = rbinom(784,1,0.2)
-#  mat    = matrix(rbin, nrow=28)
+# for (i in 51:100){ # type-2 adjacency matrices
+#  rbin   = rbinom(10000,1,0.2)
+#  mat    = matrix(rbin, nrow=100)
 #  matout = mat*t(mat)
 #  diag(matout) = 0
-#  graph20[[i]]=matout
+#  graph100[[i]]=matout
 # }

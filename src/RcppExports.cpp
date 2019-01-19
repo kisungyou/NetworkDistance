@@ -46,6 +46,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// lfdistance_new_faster
+arma::mat lfdistance_new_faster(arma::cube& vecs, arma::mat& vals, arma::vec timestamps);
+RcppExport SEXP _NetworkDistance_lfdistance_new_faster(SEXP vecsSEXP, SEXP valsSEXP, SEXP timestampsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::cube& >::type vecs(vecsSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type vals(valsSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type timestamps(timestampsSEXP);
+    rcpp_result_gen = Rcpp::wrap(lfdistance_new_faster(vecs, vals, timestamps));
+    return rcpp_result_gen;
+END_RCPP
+}
 // cpp_gdd
 Rcpp::List cpp_gdd(arma::cube& vecs, arma::mat& vals, arma::vec timestamps);
 RcppExport SEXP _NetworkDistance_cpp_gdd(SEXP vecsSEXP, SEXP valsSEXP, SEXP timestampsSEXP) {
@@ -75,6 +88,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_NetworkDistance_aux_FrobeniusDiff", (DL_FUNC) &_NetworkDistance_aux_FrobeniusDiff, 2},
     {"_NetworkDistance_lfdistance", (DL_FUNC) &_NetworkDistance_lfdistance, 3},
     {"_NetworkDistance_lfdistance_new", (DL_FUNC) &_NetworkDistance_lfdistance_new, 5},
+    {"_NetworkDistance_lfdistance_new_faster", (DL_FUNC) &_NetworkDistance_lfdistance_new_faster, 3},
     {"_NetworkDistance_cpp_gdd", (DL_FUNC) &_NetworkDistance_cpp_gdd, 3},
     {"_NetworkDistance_eigendec", (DL_FUNC) &_NetworkDistance_eigendec, 1},
     {NULL, NULL, 0}

@@ -68,20 +68,24 @@ nd.nfd <- function(A, order=0, out.dist=TRUE, vect=seq(from=0,to=10,length.out=1
   }
   Lvecs    = Lprocess$vectors
   Lvals    = Lprocess$values
-  mat_dist = array(0,c(N,N))
 
-  for (i in 1:(N-1)){
-    L1 = as.matrix(Lvecs[,,i])
-    D1 = as.vector(Lvals[,i])
-    for (j in (i+1):N){
-      L2 = as.matrix(Lvecs[,,j])
-      D2 = as.vector(Lvals[,j])
-
-      distvalue = lfdistance_new(L1,D1,L2,D2,vect)
-      mat_dist[i,j] = distvalue
-      mat_dist[j,i] = distvalue
-    }
-  }
+  ## temporary test
+  mat_dist = lfdistance_new_faster(Lvecs, Lvals, vect)
+  #
+  # mat_dist = array(0,c(N,N))
+  #
+  # for (i in 1:(N-1)){
+  #   L1 = as.matrix(Lvecs[,,i])
+  #   D1 = as.vector(Lvals[,i])
+  #   for (j in (i+1):N){
+  #     L2 = as.matrix(Lvecs[,,j])
+  #     D2 = as.vector(Lvals[,j])
+  #
+  #     distvalue = lfdistance_new(L1,D1,L2,D2,vect)
+  #     mat_dist[i,j] = distvalue
+  #     mat_dist[j,i] = distvalue
+  #   }
+  # }
 
 
   #-------------------------------------------------------
