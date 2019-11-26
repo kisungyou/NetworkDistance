@@ -27,13 +27,15 @@ signless Laplacian matrix \eqn{|L|=D+A}(\code{"SLap"}), or
 normalized Laplacian matrix \eqn{\tilde{L}=D^{-1/2}LD^{-1/2}}.
 }
 \examples{
-## load example data
+## load example data and extract only a few
 data(graph20)
+gr.small = graph20[c(1:5,11:15)]
 
 ## Compute Distance Matrix and Visualize
-output = nd.dsd(graph20, out.dist=FALSE)
-par(pty="s")
-image(output$D, main="two group case", axes=FALSE, col=gray(0:32/32))
+output <- nd.dsd(gr.small, out.dist=FALSE)
+opar   <- par(pty="s")
+image(output$D[,10:1], main="two group case", axes=FALSE, col=gray(0:32/32))
+par(opar)
 
 }
 \references{

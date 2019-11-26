@@ -12,13 +12,15 @@
 #' }
 #'
 #' @examples
-#' ## load example data
+#' ## load example data and extract only a few
 #' data(graph20)
+#' gr.small = graph20[c(1:5,11:15)]
 #'
-#' ## compute distance matrix and visualize
-#' output = nd.hamming(graph20, out.dist=FALSE)
-#' par(pty="s")
-#' image(output$D[,20:1], main="two group case", axes=FALSE, col=gray(0:32/32))
+#' ## compute distance and visualize
+#' output = nd.hamming(gr.small, out.dist=FALSE)
+#' opar   = par(pty="s")
+#' image(output$D[,10:1], main="two group case", axes=FALSE, col=gray(0:32/32))
+#' par(opar)
 #'
 #' @references
 #' \insertRef{hamming_error_1950}{NetworkDistance}

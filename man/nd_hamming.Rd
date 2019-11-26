@@ -22,13 +22,15 @@ Therefore, if used with non-binary networks, it might return a warning message a
 It was originally designed to compare two strings of equal length, see \href{https://en.wikipedia.org/wiki/Hamming_distance}{Wikipedia page} for more detailed introduction.
 }
 \examples{
-## load example data
+## load example data and extract only a few
 data(graph20)
+gr.small = graph20[c(1:5,11:15)]
 
-## compute distance matrix and visualize
-output = nd.hamming(graph20, out.dist=FALSE)
-par(pty="s")
-image(output$D[,20:1], main="two group case", axes=FALSE, col=gray(0:32/32))
+## compute distance and visualize
+output = nd.hamming(gr.small, out.dist=FALSE)
+opar   = par(pty="s")
+image(output$D[,10:1], main="two group case", axes=FALSE, col=gray(0:32/32))
+par(opar)
 
 }
 \references{

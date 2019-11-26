@@ -28,12 +28,15 @@ spectral distribution of eigenvalues and brings about a metric via
 binning strategy.
 }
 \examples{
-## load example data
+## load example data and extract a few
 data(graph20)
+gr.small = graph20[c(1:5,11:15)]
 
 ## compute distance matrix and visualize
-output = nd.wsd(graph20, out.dist=FALSE, K=10)
-image(output$D[,20:1], main="two group case", axes=FALSE, col=gray(0:32/32))
+output = nd.wsd(gr.small, out.dist=FALSE, K=10)
+opar   = par(pty="s")
+image(output$D[,10:1], main="two group case", axes=FALSE, col=gray(0:32/32))
+par(opar)
 
 }
 \references{

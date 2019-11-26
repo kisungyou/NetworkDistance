@@ -1,5 +1,3 @@
-# .pkgenv <- new.env(parent = emptyenv())
-
 .onAttach <- function(...){
   ## Retrieve Year Information
   date <- date()
@@ -10,11 +8,13 @@
   this.version = packageVersion("NetworkDistance")
 
   ## Print on Screen
+  packageStartupMessage("**--------------------------------------------------------**")
   packageStartupMessage("** NetworkDistance - Distance Measures for Networks")
-  packageStartupMessage("** Version    : ",this.version," (",this.year,")",sep="")
-  packageStartupMessage("** Maintainer : Kisung You (kyou@nd.edu)")
+  packageStartupMessage("** Version    : ",this.version,"       (",this.year,")",sep="")
+  packageStartupMessage("** Maintainer : Kisung You  (kyoustat@gmail.com)")
   packageStartupMessage("**")
   packageStartupMessage("** Please share any bugs or suggestions to the maintainer.")
+  packageStartupMessage("**--------------------------------------------------------**")
 }
 
 .onUnload <- function(libpath) {

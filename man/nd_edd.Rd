@@ -26,8 +26,9 @@ data(graph20)
 
 ## Compute Distance Matrix and Visualize
 output = nd.edd(graph20, out.dist=FALSE)
-par(pty="s")
+opar   = par(pty="s")
 image(output$D[,20:1], main="two group case", axes=FALSE, col=gray(0:32/32))
+par(opar)
 
 }
 \references{

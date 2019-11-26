@@ -13,7 +13,6 @@
 #' @import Rdpack
 #' @import Matrix
 #' @import RSpectra
-#' @import CovTools
 #' @importFrom utils packageVersion
 #' @importFrom pracma flipud
 #' @importFrom igraph as_adjacency_matrix graph_from_adjacency_matrix degree closeness betweenness

@@ -20,15 +20,15 @@
 #' }
 #'
 #' @examples
-#' \dontrun{
-#' ## load data
+#' ## load data and extract a subset
 #' data(graph20)
+#' gr.small = graph20[c(1:5,11:15)]
 #'
 #' ## Compute Distance Matrix and Visualize
-#' output = nd.gdd(graph20, out.dist=FALSE)
-#' par(pty="s")
-#' image(output$D[,20:1], main="two group case", col=gray((0:32)/32), axes=FALSE)
-#' }
+#' output = nd.gdd(gr.small, out.dist=FALSE)
+#' opar   = par(pty="s")
+#' image(output$D[,10:1], main="two group case", col=gray((0:32)/32), axes=FALSE)
+#' par(opar)
 #'
 #' @references
 #' \insertRef{hammond_graph_2013}{NetworkDistance}

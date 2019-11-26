@@ -4,8 +4,12 @@
 \alias{nd.nfd}
 \title{Network Flow Distance}
 \usage{
-nd.nfd(A, order = 0, out.dist = TRUE, vect = seq(from = 0, to = 10,
-  length.out = 1000))
+nd.nfd(
+  A,
+  order = 0,
+  out.dist = TRUE,
+  vect = seq(from = 0, to = 10, length.out = 1000)
+)
 }
 \arguments{
 \item{A}{a list of length \eqn{N} containing adjacency matrices.}
