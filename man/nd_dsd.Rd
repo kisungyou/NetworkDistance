@@ -32,10 +32,12 @@ data(graph20)
 gr.small = graph20[c(1:5,11:15)]
 
 ## Compute Distance Matrix and Visualize
+\dontrun{
 output <- nd.dsd(gr.small, out.dist=FALSE)
 opar   <- par(pty="s")
 image(output$D[,10:1], main="two group case", axes=FALSE, col=gray(0:32/32))
 par(opar)
+}
 
 }
 \references{

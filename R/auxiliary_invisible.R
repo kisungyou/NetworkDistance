@@ -22,10 +22,10 @@
 #' @noRd
 graph_transform <- function(obj,NIs="allowed"){
   # 1. package:: igraph
-  if (class(obj)=="igraph"){
+  if (inherits(obj, "igraph")){
     output = as_adjacency_matrix(obj)
   # 2. package:: network
-  } else if (class(obj)=="network"){
+  } else if (inherits(obj, "network")){
     output = Matrix(as.matrix.network(obj, matrix.type = "adjacency"), sparse=TRUE)
   # 3. simple matrix
   } else {
