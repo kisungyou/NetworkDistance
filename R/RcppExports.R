@@ -23,15 +23,7 @@ lfdistance_new_faster <- function(vecs, vals, timestamps) {
     .Call('_NetworkDistance_lfdistance_new_faster', PACKAGE = 'NetworkDistance', vecs, vals, timestamps)
 }
 
-#' @keywords internal
-#' @noRd
 cpp_gdd <- function(vecs, vals, timestamps) {
     .Call('_NetworkDistance_cpp_gdd', PACKAGE = 'NetworkDistance', vecs, vals, timestamps)
-}
-
-#' @keywords internal
-#' @noRd
-eigendec <- function(L) {
-    .Call('_NetworkDistance_eigendec', PACKAGE = 'NetworkDistance', L)
 }
 

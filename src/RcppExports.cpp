@@ -72,17 +72,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// eigendec
-double eigendec(arma::mat& L);
-RcppExport SEXP _NetworkDistance_eigendec(SEXP LSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat& >::type L(LSEXP);
-    rcpp_result_gen = Rcpp::wrap(eigendec(L));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_NetworkDistance_aux_FrobeniusDiff", (DL_FUNC) &_NetworkDistance_aux_FrobeniusDiff, 2},
@@ -90,7 +79,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_NetworkDistance_lfdistance_new", (DL_FUNC) &_NetworkDistance_lfdistance_new, 5},
     {"_NetworkDistance_lfdistance_new_faster", (DL_FUNC) &_NetworkDistance_lfdistance_new_faster, 3},
     {"_NetworkDistance_cpp_gdd", (DL_FUNC) &_NetworkDistance_cpp_gdd, 3},
-    {"_NetworkDistance_eigendec", (DL_FUNC) &_NetworkDistance_eigendec, 1},
     {NULL, NULL, 0}
 };
 

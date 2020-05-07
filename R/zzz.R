@@ -10,6 +10,7 @@
   ## Print on Screen
   packageStartupMessage("**--------------------------------------------------------**")
   packageStartupMessage("** NetworkDistance - Distance Measures for Networks")
+  packageStartupMessage("**")
   packageStartupMessage("** Version    : ",this.version,"       (",this.year,")",sep="")
   packageStartupMessage("** Maintainer : Kisung You  (kyoustat@gmail.com)")
   packageStartupMessage("**")
