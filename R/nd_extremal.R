@@ -17,14 +17,18 @@
 #' }
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' ## load data
 #' data(graph20)
 #'
-#' ## Compute Distance Matrix and Visualize
+#' ## compute distance matrix
 #' output = nd.extremal(graph20, out.dist=FALSE, k=2)
+#'
+#' ## visualize
+#' opar = par(no.readonly=TRUE)
 #' par(pty="s")
 #' image(output$D[,20:1], main="two group case", col=gray(0:32/32), axes=FALSE)
+#' par(opar)
 #' }
 #'
 #' @references

@@ -8,7 +8,7 @@
 #'
 #' @param A a list of length \eqn{N} containing \eqn{(M\times M)} adjacency matrices.
 #' @param out.dist a logical; \code{TRUE} for computed distance matrix as a \code{dist} object.
-#' @param type type of target structure. One of \code{"Adj","Lap","SLap","NLap"} as defined above.
+#' @param type type of target structure. One of \code{"Lap","SLap","NLap","Adj"} as defined above.
 #'
 #' @return a named list containing \describe{
 #' \item{D}{an \eqn{(N\times N)} matrix or \code{dist} object containing pairwise distance measures.}
@@ -16,14 +16,17 @@
 #' }
 #'
 #' @examples
+#' \donttest{
 #' ## load example data and extract only a few
 #' data(graph20)
 #' gr.small = graph20[c(1:5,11:15)]
 #'
-#' ## Compute Distance Matrix and Visualize
-#' \dontrun{
+#' ## compute distance matrix
 #' output <- nd.dsd(gr.small, out.dist=FALSE)
-#' opar   <- par(pty="s")
+#'
+#' ## visualize
+#' opar <- par(no.readonly=TRUE)
+#' par(pty="s")
 #' image(output$D[,10:1], main="two group case", axes=FALSE, col=gray(0:32/32))
 #' par(opar)
 #' }
@@ -33,7 +36,7 @@
 #'
 #' @rdname nd_dsd
 #' @export
-nd.dsd <- function(A, out.dist=TRUE, type=c("Adj","Lap","SLap","NLap")){
+nd.dsd <- function(A, out.dist=TRUE, type=c("Lap","SLap","NLap","Adj")){
   #-------------------------------------------------------
   ## PREPROCESSING
   # 1. list of length larger than 1
@@ -60,13 +63,13 @@ nd.dsd <- function(A, out.dist=TRUE, type=c("Adj","Lap","SLap","NLap")){
   #   2. eigenvalue computation
   for (i in 1:N){
     tgt = listA[[i]]
-    if (type=="Adj"){
+    if (all(type=="Adj")){
       X = as.matrix(tgt)
-    } else if (type=="Lap"){
+    } else if (all(type=="Lap")){
       X = as.matrix(laplacian_unnormalized(tgt))
-    } else if (type=="NLap"){
+    } else if (all(type=="NLap")){
       X = as.matrix(laplacian_normalized(tgt))
-    } else if (type=="SLap"){
+    } else if (all(type=="SLap")){
       X = as.matrix(laplacian_signless(tgt))
     }
     mat_eigs[i,] = as.vector(RSpectra::eigs(X,(M-1))$values)

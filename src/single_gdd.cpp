@@ -4,7 +4,6 @@
 using namespace Rcpp;
 using namespace arma;
 
-
 // [[Rcpp::export]]
 Rcpp::List cpp_gdd(arma::cube& vecs, arma::mat& vals, arma::vec timestamps){
   // 1. parameters

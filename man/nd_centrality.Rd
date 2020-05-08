@@ -34,7 +34,7 @@ See this \href{https://en.wikipedia.org/wiki/Centrality}{Wikipedia page} for mor
 on network/graph centrality.
 }
 \examples{
-\dontrun{
+\donttest{
 ## load example data
 data(graph20)
 
@@ -44,10 +44,12 @@ out2 <- nd.centrality(graph20, out.dist=FALSE,mode="Close")
 out3 <- nd.centrality(graph20, out.dist=FALSE,mode="Between")
 
 ## visualize
+opar = par(no.readonly=TRUE)
 par(mfrow=c(1,3), pty="s")
 image(out1$D[,20:1], main="Degree", col=gray(0:32/32), axes=FALSE)
 image(out2$D[,20:1], main="Close", col=gray(0:32/32), axes=FALSE)
 image(out3$D[,20:1], main="Between", col=gray(0:32/32), axes=FALSE)
+par(opar)
 }
 
 }

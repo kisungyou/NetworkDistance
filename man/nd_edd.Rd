@@ -24,9 +24,12 @@ takestwo adjacency matrices and takes Frobenius norm of their differnces.
 ## load example data
 data(graph20)
 
-## Compute Distance Matrix and Visualize
+## compute distance matrix
 output = nd.edd(graph20, out.dist=FALSE)
-opar   = par(pty="s")
+
+## visualize
+opar <- par(no.readonly=TRUE)
+par(pty="s")
 image(output$D[,20:1], main="two group case", axes=FALSE, col=gray(0:32/32))
 par(opar)
 

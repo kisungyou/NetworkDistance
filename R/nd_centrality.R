@@ -19,7 +19,7 @@
 #'
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' ## load example data
 #' data(graph20)
 #'
@@ -29,10 +29,12 @@
 #' out3 <- nd.centrality(graph20, out.dist=FALSE,mode="Between")
 #'
 #' ## visualize
+#' opar = par(no.readonly=TRUE)
 #' par(mfrow=c(1,3), pty="s")
 #' image(out1$D[,20:1], main="Degree", col=gray(0:32/32), axes=FALSE)
 #' image(out2$D[,20:1], main="Close", col=gray(0:32/32), axes=FALSE)
 #' image(out3$D[,20:1], main="Between", col=gray(0:32/32), axes=FALSE)
+#' par(opar)
 #' }
 #'
 #' @references
@@ -59,10 +61,11 @@ nd.centrality <- function(A, out.dist=TRUE,
     stop("* nd.centrality : 'out.dist' and 'directed' should be logical variables.")
   }
   # 4. mode
+  allmodes = c("degree","close","between")
   if (missing(mode)){
     finmode = "degree"
   } else {
-    finmode = match.arg(mode)
+    finmode = match.arg(tolower(mode), allmodes)
   }
 
   #-------------------------------------------------------
@@ -79,11 +82,11 @@ nd.centrality <- function(A, out.dist=TRUE,
       tgt = graph_from_adjacency_matrix(listA[[i]], mode="directed")
     }
     #   2-2. compute features & record
-    if (finmode=="Degree"){
+    if (all(finmode=="degree")){
       mat_features[i,] = as.vector(igraph::degree(tgt))
-    } else if (finmode=="Close"){
+    } else if ((finmode=="close")){
       mat_features[i,] = as.vector(igraph::closeness(tgt))
-    } else if (finmode=="Between"){
+    } else if ((finmode=="between")){
       mat_features[i,] = as.vector(igraph::betweenness(tgt))
     }
   }

@@ -29,13 +29,18 @@ it is defined as
 where \eqn{H} and \eqn{IM} stand for Hamming and I-M distance, respectively.
 }
 \examples{
-\dontrun{
+\donttest{
 ## load example data
 data(graph20)
 
-## compute distance matrix and visualize
+## compute distance matrix
 output = nd.him(graph20, out.dist=FALSE)
+
+## visualize
+opar = par(no.readonly=TRUE)
+par(pty="s")
 image(output$D[,20:1], main="two group case", axes=FALSE, col=gray(0:32/32))
+par(opar)
 }
 
 }

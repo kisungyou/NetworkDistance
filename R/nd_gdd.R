@@ -24,9 +24,12 @@
 #' data(graph20)
 #' gr.small = graph20[c(1:5,11:15)]
 #'
-#' ## Compute Distance Matrix and Visualize
+#' ## compute distance matrix
 #' output = nd.gdd(gr.small, out.dist=FALSE)
-#' opar   = par(pty="s")
+#'
+#' ## visualize
+#' opar = par(no.readonly=TRUE)
+#' par(pty="s")
 #' image(output$D[,10:1], main="two group case", col=gray((0:32)/32), axes=FALSE)
 #' par(opar)
 #'

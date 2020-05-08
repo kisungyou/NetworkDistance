@@ -1,7 +1,11 @@
+# NetworkDistance 0.3.3
+
+* Added `nd.moments` and `nd.graphon`.
+
 # NetworkDistance 0.3.2
 
-* faster implementation of `nd.nfd`
-* vignette is included.
+* Faster implementation of `nd.nfd`
+* Vignette is included.
   
 # NetworkDistance 0.3.1
 

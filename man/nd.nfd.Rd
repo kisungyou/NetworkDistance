@@ -37,9 +37,12 @@ data(graph20)
 out1 = nd.gdd(graph20, out.dist=FALSE)
 out2 = nd.nfd(graph20, out.dist=FALSE)
 
+# visualize
+opar <- par(no.readonly=TRUE)
 par(mfrow=c(1,2), pty="s")
 image(out1$D[,20:1],col=gray((0:32)/32), main="nd.gdd",axes=FALSE)
 image(out2$D[,20:1],col=gray((0:32)/32), main="nd.nfd",axes=FALSE)
+par(opar)
 }
 
 }

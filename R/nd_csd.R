@@ -9,14 +9,18 @@
 #' automatically aborts the process.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' ## load example data
 #' data(graph20)
 #'
-#' ## Compute Distance Matrix and Visualize
+#' ## compute distance matrix
 #' output = nd.csd(graph20, out.dist=FALSE, bandwidth=1.0)
+#'
+#' ## visualize
+#' opar = par(no.readonly=TRUE)
 #' par(pty="s")
 #' image(output$D[,20:1], main="two group case", axes=FALSE, col=gray(0:32/32))
+#' par(opar)
 #' }
 #'
 #' @param A a list of length \eqn{N} containing \eqn{(M\times M)} adjacency matrices.

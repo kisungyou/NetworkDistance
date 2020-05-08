@@ -3,9 +3,8 @@
 
 using namespace Rcpp;
 using namespace arma;
+using namespace std;
 
-//' @keywords internal
-//' @noRd
 // [[Rcpp::export]]
 double lfdistance(arma::mat& L1, arma::mat& L2, double inct){
   // 1. parameters
@@ -62,8 +61,6 @@ double lfdistance(arma::mat& L1, arma::mat& L2, double inct){
 
 
 
-//' @keywords internal
-//' @noRd
 // [[Rcpp::export]]
 double lfdistance_new(arma::mat& L1, arma::vec D1, arma::mat& L2, arma::vec D2, arma::vec timestamp){
   // 1. parameters
@@ -110,9 +107,6 @@ double lfdistance_new(arma::mat& L1, arma::vec D1, arma::mat& L2, arma::vec D2, 
 }
 
 
-
-//' @keywords internal
-//' @noRd
 // [[Rcpp::export]]
 arma::mat lfdistance_new_faster(arma::cube& vecs, arma::mat& vals, arma::vec timestamps){
   // 1. parameters

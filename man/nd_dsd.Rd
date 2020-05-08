@@ -4,14 +4,14 @@
 \alias{nd.dsd}
 \title{Discrete Spectral Distance}
 \usage{
-nd.dsd(A, out.dist = TRUE, type = c("Adj", "Lap", "SLap", "NLap"))
+nd.dsd(A, out.dist = TRUE, type = c("Lap", "SLap", "NLap", "Adj"))
 }
 \arguments{
 \item{A}{a list of length \eqn{N} containing \eqn{(M\times M)} adjacency matrices.}
 
 \item{out.dist}{a logical; \code{TRUE} for computed distance matrix as a \code{dist} object.}
 
-\item{type}{type of target structure. One of \code{"Adj","Lap","SLap","NLap"} as defined above.}
+\item{type}{type of target structure. One of \code{"Lap","SLap","NLap","Adj"} as defined above.}
 }
 \value{
 a named list containing \describe{
@@ -27,14 +27,17 @@ signless Laplacian matrix \eqn{|L|=D+A}(\code{"SLap"}), or
 normalized Laplacian matrix \eqn{\tilde{L}=D^{-1/2}LD^{-1/2}}.
 }
 \examples{
+\donttest{
 ## load example data and extract only a few
 data(graph20)
 gr.small = graph20[c(1:5,11:15)]
 
-## Compute Distance Matrix and Visualize
-\dontrun{
+## compute distance matrix
 output <- nd.dsd(gr.small, out.dist=FALSE)
-opar   <- par(pty="s")
+
+## visualize
+opar <- par(no.readonly=TRUE)
+par(pty="s")
 image(output$D[,10:1], main="two group case", axes=FALSE, col=gray(0:32/32))
 par(opar)
 }
