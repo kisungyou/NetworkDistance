@@ -15,8 +15,8 @@ knitr::opts_chunk$set(
 # NetworkDistance
 
 <!-- badges: start -->
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/NetworkDistance?color=green)](https://cran.r-project.org/package=NetworkDistance)
-[![Travis build status](https://travis-ci.org/kyoustat/NetworkDistance.svg?branch=master)](https://travis-ci.org/kyoustat/NetworkDistance)
+[![CRAN status](https://www.r-pkg.org/badges/version/NetworkDistance)](https://CRAN.R-project.org/package=NetworkDistance)
+[![Travis build status](https://travis-ci.org/kisungyou/NetworkDistance.svg?branch=master)](https://travis-ci.org/kisungyou/NetworkDistance)
 [![](https://cranlogs.r-pkg.org/badges/NetworkDistance)](https://cran.r-project.org/package=NetworkDistance)
 <!-- badges: end -->
 
@@ -34,7 +34,7 @@ or the development version from github:
 ```r
 ## install.packages("devtools")
 ## library(devtools)
-devtools::install_github("kyoustat/NetworkDistance")
+devtools::install_github("kisungyou/NetworkDistance")
 ```
 
 ## Currently Available Methods

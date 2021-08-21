@@ -1,3 +1,7 @@
+# NetworkDistance 0.3.4
+
+* Change of maintainer's contact.
+
 # NetworkDistance 0.3.3
 
 * Added `nd.moments` and `nd.graphon`.
