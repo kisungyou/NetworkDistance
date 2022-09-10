@@ -50,6 +50,6 @@ expanded continuously.
 | `nd.graphon`    |  Mukherjee et al. (2017)   | Graphon Estimates Distance                                |
 | `nd.hamming`    |       Hamming (1950)       | Hamming Distance                                          |
 | `nd.him`        |    Jurman et al. (2015)    | Hamming-Ipsen-Mikhailov (HIM) Distance                    |
-| `nd.moments`    |  Mukherjee et al. (2017)   | Log Moments Distanec                                      |
+| `nd.moments`    |  Mukherjee et al. (2017)   | Log Moments Distance                                      |
 | `nd.nfd`        |     Bao et al. (2018)      | Network Flow Distance                                     |
 | `nd.wsd`        |     Fay et al. (2010)      | Distance with Weighted Spectral Distribution              |
