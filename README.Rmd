@@ -16,7 +16,6 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/NetworkDistance)](https://CRAN.R-project.org/package=NetworkDistance)
-[![Travis build status](https://travis-ci.org/kisungyou/NetworkDistance.svg?branch=master)](https://travis-ci.org/kisungyou/NetworkDistance)
 [![](https://cranlogs.r-pkg.org/badges/NetworkDistance)](https://cran.r-project.org/package=NetworkDistance)
 <!-- badges: end -->
 
