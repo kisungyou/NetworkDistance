@@ -3,6 +3,7 @@
 \docType{package}
 \name{NetworkDistance}
 \alias{NetworkDistance}
+\alias{NetworkDistance-package}
 \title{Distance Measures for Networks}
 \description{
 Network has gathered much attention from many disciplines, as many of real data

@@ -10,6 +10,7 @@
 #'
 #' @docType package
 #' @name NetworkDistance
+#' @aliases NetworkDistance-package
 #' @import Rdpack
 #' @import Matrix
 #' @import RSpectra
