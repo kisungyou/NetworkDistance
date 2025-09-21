@@ -2,22 +2,22 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 aux_FrobeniusDiff <- function(A, B) {
-    .Call('_NetworkDistance_aux_FrobeniusDiff', PACKAGE = 'NetworkDistance', A, B)
+    .Call(`_NetworkDistance_aux_FrobeniusDiff`, A, B)
 }
 
 lfdistance <- function(L1, L2, inct) {
-    .Call('_NetworkDistance_lfdistance', PACKAGE = 'NetworkDistance', L1, L2, inct)
+    .Call(`_NetworkDistance_lfdistance`, L1, L2, inct)
 }
 
 lfdistance_new <- function(L1, D1, L2, D2, timestamp) {
-    .Call('_NetworkDistance_lfdistance_new', PACKAGE = 'NetworkDistance', L1, D1, L2, D2, timestamp)
+    .Call(`_NetworkDistance_lfdistance_new`, L1, D1, L2, D2, timestamp)
 }
 
 lfdistance_new_faster <- function(vecs, vals, timestamps) {
-    .Call('_NetworkDistance_lfdistance_new_faster', PACKAGE = 'NetworkDistance', vecs, vals, timestamps)
+    .Call(`_NetworkDistance_lfdistance_new_faster`, vecs, vals, timestamps)
 }
 
 cpp_gdd <- function(vecs, vals, timestamps) {
-    .Call('_NetworkDistance_cpp_gdd', PACKAGE = 'NetworkDistance', vecs, vals, timestamps)
+    .Call(`_NetworkDistance_cpp_gdd`, vecs, vals, timestamps)
 }
 
